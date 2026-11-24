@@ -1,0 +1,9 @@
+namespace BookStore.Models;
+
+public class BookImage
+{
+    public int Id { get; set; }
+    public string FilePath { get; set; } = string.Empty;
+    public int BookId { get; set; }
+    public Book? Book { get; set; }
+}
