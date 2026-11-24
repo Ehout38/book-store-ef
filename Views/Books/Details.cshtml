@@ -1,0 +1,49 @@
+@model BookDetailsViewModel
+@{
+    ViewData["Title"] = Model.Book.Title;
+}
+
+<section class="book-details">
+    <div class="gallery">
+        @foreach (var image in Model.Book.Images)
+        {
+            <img src="@image.FilePath" alt="@Model.Book.Title" />
+        }
+    </div>
+    <h1>@Model.Book.Title</h1>
+    <p><strong>Author:</strong> @Model.Book.Author</p>
+    <p><strong>Genre:</strong> @Model.Book.Genre</p>
+    <p><strong>Price:</strong> @Model.Book.Price.ToString("0.00") UAH</p>
+</section>
+
+<section>
+    <h2>Leave a comment</h2>
+    @if (TempData["Error"] is not null)
+    {
+        <p class="error">@TempData["Error"]</p>
+    }
+    <form asp-action="AddComment" method="post" class="form">
+        <input type="hidden" name="bookId" value="@Model.Book.Id" />
+        <label asp-for="Comment.AuthorName">Name</label>
+        <input asp-for="Comment.AuthorName" />
+        <label asp-for="Comment.Text">Comment</label>
+        <textarea asp-for="Comment.Text" rows="4"></textarea>
+        <button type="submit">Publish</button>
+    </form>
+</section>
+
+<section>
+    <h2>Comments</h2>
+    @if (Model.Book.Comments.Count == 0)
+    {
+        <p>No comments yet.</p>
+    }
+    @foreach (var comment in Model.Book.Comments)
+    {
+        <article class="comment">
+            <strong>@comment.AuthorName</strong>
+            <small>@comment.CreatedAt.ToLocalTime().ToString("g")</small>
+            <p>@comment.Text</p>
+        </article>
+    }
+</section>

@@ -1,0 +1,22 @@
+@model IEnumerable<Book>
+@{
+    ViewData["Title"] = "Catalog";
+}
+
+<h1>Book catalog</h1>
+<div class="grid">
+@foreach (var book in Model)
+{
+    <article class="card">
+        @if (book.Images.Count > 0)
+        {
+            <img src="@book.Images[0].FilePath" alt="@book.Title" />
+        }
+        <h2>@book.Title</h2>
+        <p>@book.Author</p>
+        <p>@book.Genre</p>
+        <strong>@book.Price.ToString("0.00") UAH</strong>
+        <a asp-action="Details" asp-route-id="@book.Id">View details</a>
+    </article>
+}
+</div>
