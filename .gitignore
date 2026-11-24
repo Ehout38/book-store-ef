@@ -1,0 +1,8 @@
+bin/
+obj/
+*.db
+*.db-shm
+*.db-wal
+.vs/
+wwwroot/images/books/*
+!wwwroot/images/books/.gitkeep
